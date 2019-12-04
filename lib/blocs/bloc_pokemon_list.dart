@@ -1,0 +1,7 @@
+
+
+class PokemonListBloc {
+
+
+  getPokemonList() async {}
+}

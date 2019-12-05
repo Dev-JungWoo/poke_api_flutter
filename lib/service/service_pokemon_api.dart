@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:http/http.dart';
@@ -11,14 +10,13 @@ class PokemonApiService {
     Response response = await get(url);
 
     int statusCode = response.statusCode;
-    String jsonString = response.body;
 
-    Map pokeListJson = jsonDecode(jsonString);
+    if (200 <= statusCode && statusCode < 300) {
+      PokemonListModel list =
+          PokemonListModel.fromJson(jsonDecode(response.body));
+      return list;
+    }
 
-    PokemonListModel list = PokemonListModel.fromJson(pokeListJson);
-
-    print('Count = ${list.count}');
-
-    return list;
+    throw Exception('Failed to load post');
   }
 }
